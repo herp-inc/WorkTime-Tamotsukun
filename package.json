@@ -1,16 +1,17 @@
 {
   "name": "worktime-tamotsukun",
   "version": "1.0.0",
-  "description": "労働時間を保労働保君",
+  "description": "労働時間を保つ労働時間保君",
   "lib": [
     "ES2015"
   ],
   "main": "index.js",
   "dependencies": {
-    "@slack/client": "^4.8.0",
+    "@slack/client": "^4.8.0"
+  },
+  "devDependencies": {
     "prettier": "^1.15.3"
   },
-  "devDependencies": {},
   "scripts": {
     "prettier:format": "prettier --write src/**/*.js index.js",
     "wtt:run": "./bin/slabot"
@@ -28,5 +29,9 @@
     "url": "https://github.com/Nymphium/WorkTime-Tamotsukun/issues"
   },
   "homepage": "https://github.com/Nymphium/WorkTime-Tamotsukun#readme",
-  "presets": ["ES2017", "ES2016", "ES2015"]
+  "presets": [
+    "ES2017",
+    "ES2016",
+    "ES2015"
+  ]
 }

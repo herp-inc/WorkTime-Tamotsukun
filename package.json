@@ -14,7 +14,8 @@
   },
   "scripts": {
     "prettier:format": "prettier --write src/**/*.js index.js",
-    "wtt:run": "./bin/slabot"
+    "wtt:run": "./bin/slabot",
+    "start": "./bin/slabot"
   },
   "repository": {
     "type": "git",

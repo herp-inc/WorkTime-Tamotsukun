@@ -1,1 +1,1 @@
-worker: yarn wtt:run
+app: yarn wtt:run

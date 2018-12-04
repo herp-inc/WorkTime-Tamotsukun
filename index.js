@@ -14,41 +14,56 @@ rtm.on('connected', () => {
   console.log('connected to slack')
 })
 
+rtm.on('disconnected', () => {
+  console.log('!!disconnected!!')
+})
+
 rtm.on('message', msg => {
   const time = ts2date(msg.ts)
 
+  //   :rodo::kaisi: {{{
   if (/:(rodo|work):\s*[を]?\s*:(kaisi|start):/.test(msg.text)) {
-    if (!worker.filterK(msg.user, _ => warn.AlreadyWorking(msg.channel))) {
+    if (!worker.filterK(msg.user, _ => warn.work.alreadyStart(msg.channel))) {
       console.log(`${msg.user} has started to work at ${msg.channel}`)
       worker.init(msg.user, time)
-      ok.workStart(msg.channel)
+      ok.work.start(msg.channel)
     }
+    // }}}
+    // :rodo::shuryo: {{{
   } else if (/:(rodo|work):\s*[はをも]?\s*:s[hy]uryo:/.test(msg.text)) {
     if (
       !worker.filterK(msg.user, info => {
         if (!rest.isStopped(info)) {
-          warn.NotStop(msg.channel)
+          warn.rest.notStop(msg.channel)
         } else {
-          ok.workStopK(msg.user, info, time, msg0 => {
+          ok.work.stopK(msg.user, info, time, msg0 => {
             console.log(`${msg.user} has completed to work at ${msg.channel}`)
             msg0(msg.channel).then(() => worker.deinit(msg.user))
           })
         }
       })
     ) {
-      warn.NoWork(msg.channel)
+      warn.work.notStart(msg.channel)
     }
+    // }}}
+    // :kyuke::kaisi: {{{
   } else if (/:(kyuke|rest):\s*:(kaisi|start)/.test(msg.text)) {
     if (
       !worker.filterK(msg.user, info => {
-        console.log(`${msg.user} began taking a break at ${msg.channel}`)
-        rest.pushStart(info, time)
+        if (rest.isStarted(info)) {
+          warn.rest.alreadyStart(msg.channel)
+        } else {
+          console.log(`${msg.user} began taking a break at ${msg.channel}`)
+          rest.pushStart(info, time)
 
-        ok.restStart(msg.channel)
+          ok.rest.start(msg.channel)
+        }
       })
     ) {
-      warn.NoWork(msg.channel)
+      warn.work.notStart(msg.channel)
     }
+    // }}}
+    // :kyuke::shuryo: {{{
   } else if (/:(kyuke|rest):\s*:s[hy]uryo:/.test(msg.text)) {
     if (
       !worker.filterK(msg.user, info => {
@@ -56,13 +71,14 @@ rtm.on('message', msg => {
           console.log(`${msg.user} finished the break at ${msg.channel}`)
           rest.pushStop(info, time)
 
-          ok.restStop(msg.channel)
+          ok.rest.stop(msg.channel)
         } else {
-          warn.NoRest(msg.channel)
+          warn.rest.notStart(msg.channel)
         }
       })
     ) {
-      warn.NoWork(msg.channel)
+      warn.work.notStart(msg.channel)
     }
+    // }}}
   }
 })

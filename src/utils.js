@@ -26,24 +26,33 @@ const PostWrapper = web => {
 
   return {
     warn: {
-      AlreadyWorking: post('労働はすでに始まっている'),
-      NoWork: post('労働開始してへんで'),
-      NoRest: post('休憩開始してへんで'),
-      NotStop: post('休憩まだ続いてるで'),
+      work: {
+        alreadyStart: post('労働はすでに始まっている'),
+        notStart: post('労働開始してへんで'),
+      },
+      rest: {
+        alreadyStart: post('休憩中やで'),
+        notStart: post('休憩開始してへんで'),
+        notStop: post('休憩まだ続いてるで'),
+      },
     },
     ok: {
-      workStart: post('労働開始了解!!'),
-      restStart: post('休憩開始了解!!'),
-      restStop: post('休憩終了了解!!'),
-      workStopK: (id, info, time, k) => {
-        return k(
-          post(
-            `<@${id}>さん 労働お疲れ様でした` +
-              `\n開始: ${renderTime(info.startTime)}` +
-              `\n終了: ${renderTime(time)}` +
-              `\n休憩時間:${renderRestTimes(info)}`,
-          ),
-        )
+      work: {
+        start: post('労働開始了解!!'),
+        stopK: (id, info, time, k) => {
+          return k(
+            post(
+              `<@${id}>さん 労働お疲れ様でした` +
+                `\n開始: ${renderTime(info.startTime)}` +
+                `\n終了: ${renderTime(time)}` +
+                `\n休憩時間:${renderRestTimes(info)}`,
+            ),
+          )
+        },
+      },
+      rest: {
+        start: post('休憩開始了解!!'),
+        stop: post('休憩終了了解!!'),
       },
     },
   }

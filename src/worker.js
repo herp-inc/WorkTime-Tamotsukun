@@ -16,15 +16,15 @@ worker.deinit = id => delete dict[id]
 
 let rest = {}
 
+const last = ln => ln[ln.length - 1]
+
 rest.pushStart = (info, time) => {
-  info.restTime[info.restTime.length] = [time]
+  info.restTime.push([time])
 }
 
 rest.pushStop = (info, time) => {
-  info.restTime[info.restTime.length - 1].push(time)
+  last(info.restTime).push(time)
 }
-
-const last = ln => ln[ln.length - 1]
 
 rest.isStarted = info =>
   info.restTime.length > 0 && last(info.restTime).length === 1

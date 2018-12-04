@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [[ ! $SLACK_TOKEN ]]; then
+if [[ ! $SLACK_WTT_TOKEN ]]; then
    if [[ -e lib/secret ]]; then
-       export SLACK_TOKEN=$(cat lib/secret)
+       export SLACK_WTT_TOKEN=$(cat lib/secret)
    else
-       echo 'you must set environment variable `SLACK_TOKEN`'
+       echo 'you must set environment variable `SLACK_WTT_TOKEN`'
        exit 1
    fi
 fi

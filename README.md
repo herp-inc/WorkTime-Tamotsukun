@@ -13,5 +13,5 @@ xoxb-XXXXXXX-XXXXXXXXX
 $ yarn wtt:run
 
 # or
-$ SLACK_TOKEN=xoxob-XXXXXXX-XXXXXXX yarn wtt:run
+$ SLACK_WTT_TOKEN=xoxob-XXXXXXX-XXXXXXX yarn wtt:run
 ```

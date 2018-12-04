@@ -2,7 +2,7 @@ const { WebClient, RTMClient } = require('@slack/client')
 const { worker, rest } = require('./src/worker')
 const { ts2date, PostWrapper } = require('./src/utils')
 
-const token = process.env.SLACK_TOKEN
+const token = process.env.SLACK_WTT_TOKEN
 const rtm = new RTMClient(token)
 const web = new WebClient(token)
 

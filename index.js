@@ -6,7 +6,7 @@ const token = process.env.SLACK_WTT_TOKEN
 const rtm = new RTMClient(token)
 const web = new WebClient(token)
 
-const { warn, ok } = PostWrapper(web, worker)
+const { warn, ok } = PostWrapper(web)
 
 rtm.start()
 
@@ -29,7 +29,7 @@ rtm.on('message', msg => {
         if (!rest.isStopped(info)) {
           warn.NotStop(msg.channel)
         } else {
-          ok.workStopK(msg.user, info, time)(msg0 => {
+          ok.workStopK(msg.user, info, time, msg0 => {
             console.log(`${msg.user} has completed to work at ${msg.channel}`)
             msg0(msg.channel).then(() => worker.deinit(msg.user))
           })

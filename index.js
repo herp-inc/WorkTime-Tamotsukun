@@ -19,6 +19,7 @@ rtm.on('message', msg => {
 
   if (/:(rodo|work):\s*[を]?\s*:(kaisi|start):/.test(msg.text)) {
     if (!worker.filterK(msg.user, _ => warn.AlreadyWorking(msg.channel))) {
+      console.log(`${msg.user} has started to work at ${msg.channel}`)
       worker.init(msg.user, time)
       ok.workStart(msg.channel)
     }
@@ -29,6 +30,7 @@ rtm.on('message', msg => {
           warn.NotStop(msg.channel)
         } else {
           ok.workStopK(msg.user, info, time)(msg0 => {
+            console.log(`${msg.user} has completed to work at ${msg.channel}`)
             msg0(msg.channel).then(() => worker.deinit(msg.user))
           })
         }
@@ -39,6 +41,7 @@ rtm.on('message', msg => {
   } else if (/:(kyuke|rest):\s*:(kaisi|start)/.test(msg.text)) {
     if (
       !worker.filterK(msg.user, info => {
+        console.log(`${msg.user} began taking a break at ${msg.channel}`)
         rest.pushStart(info, time)
 
         ok.restStart(msg.channel)
@@ -50,6 +53,7 @@ rtm.on('message', msg => {
     if (
       !worker.filterK(msg.user, info => {
         if (rest.isStarted(info)) {
+          console.log(`${msg.user} finished the break at ${msg.channel}`)
           rest.pushStop(info, time)
 
           ok.restStop(msg.channel)

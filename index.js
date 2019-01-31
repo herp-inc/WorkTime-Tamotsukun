@@ -74,7 +74,7 @@ rtm.on('message', msg => {
         }
       })
     ) {
-      warn.work.notStart(msg.channel)
+      post.warn.work.notStart(msg.channel)
     }
     // }}}
     // :kyuke::shuryo: {{{

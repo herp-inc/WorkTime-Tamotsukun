@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [[ ! $SLACK_WTT_TOKEN ]]; then
    if [[ -e lib/secret ]]; then

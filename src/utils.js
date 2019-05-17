@@ -1,4 +1,5 @@
-const zpd = d => d.toString().padStart(2, '0')
+const { zpd } = require('./prim')
+
 const renderTime = date => `${zpd(date.getHours())}:${zpd(date.getMinutes())}`
 
 const ts2date = ts => new Date(parseInt(ts) * 10 ** 3)
